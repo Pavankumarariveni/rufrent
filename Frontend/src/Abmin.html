@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-50">
+    <div class="min-h-screen flex">
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 fixed h-full">
+            <div class="flex items-center justify-center h-16 border-b border-gray-200">
+                <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="h-8" />
+            </div>
+            <nav class="mt-6">
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('dashboard')">
+                    <i class="fas fa-chart-line w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('property-listings')">
+                    <i class="fas fa-building w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Property Listings</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('requests')">
+                    <i class="fas fa-tasks w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Requests</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('staff-assignment')">
+                    <i class="fas fa-users w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Staff Assignment</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('communities')">
+                    <i class="fas fa-city w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Communities</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('user-management')">
+                    <i class="fas fa-user w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">User Management</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('db-tables')">
+                    <i class="fas fa-user w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">DB Tables</span>
+                </a>
+
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white" onclick="showSection('reports')">
+                    <i class="fas fa-file-alt w-5 h-5 mr-3"></i>
+                    <span class="text-sm font-medium">Reports</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 ml-64">
+            <header class="bg-white h-16 fixed w-full z-10 border-b border-gray-200 shadow-sm">
+                <div class="flex items-center justify-around h-full px-6">
+                    <h1 class="text-xl font-semibold text-gray-800">Admin Panel</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <button class="p-2 text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="p-2 text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="pt-16 px-6">
+                <div id="dashboard" class="section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-blue-100 rounded-lg">
+                                    <i class="fas fa-home text-blue-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-sm font-medium text-gray-500">Total Properties</h3>
+                                    <p class="text-2xl font-semibold text-gray-900">3,245</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-yellow-100 rounded-lg">
+                                    <i class="fas fa-clock text-yellow-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-sm font-medium text-gray-500">Pending Approvals</h3>
+                                    <p class="text-2xl font-semibold text-gray-900">85</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-green-100 rounded-lg">
+                                    <i class="fas fa-comments text-green-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-sm font-medium text-gray-500">Active Requests</h3>
+                                    <p class="text-2xl font-semibold text-gray-900">234</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-purple-100 rounded-lg">
+                                    <i class="fas fa-building text-purple-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-sm font-medium text-gray-500">Communities</h3>
+                                    <p class="text-2xl font-semibold text-gray-900">52</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Property Listings Trend</h3>
+                            <canvas id="propertyChartCanvas" class="h-80 w-full"></canvas>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Request Analytics</h3>
+                            <canvas id="requestChartCanvas" class="h-80 w-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="property-listings" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="flex items-center justify-between p-6 border-b">
+                            <div class="flex items-center space-x-4 mb-4 justify-between">
+                                <h3 class="text-lg font-medium text-gray-900 py-5">Property Listings</h3>
+                                <div class="flex">
+                                    <input type="text" placeholder="Search properties..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" id="property-search" />
+                                    <select class="ml-5 px-2 py- 1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="rejected">Rejected</option>
+                                    </select>
+
+                                    <select class="ml-4 px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                        <option value="">Select City</option>
+                                        <option value="city1">City 1</option>
+                                        <option value="city2">City 2</option>
+                                    </select>
+                                    <select class="ml-4 px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                        <option value="">Select Community</option>
+                                        <option value="community1">Community 1</option>
+                                        <option value="community2">Community 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">P001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Luxury Villa</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Beverly Hills, CA</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$2,500,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                            <option value="pending" selected class="bg-yellow-100 text-yellow-800">Pending</option>
+                                            <option value="approved" class="bg-green-100 text-green-800">Approved</option>
+                                            <option value="rejected" class="bg-red-100 text-red-800">Rejected</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">P002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Modern Apartment</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Manhattan, NY</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$850,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                            <option value="pending" class="bg-yellow-100 text-yellow-800">Pending</option>
+                                            <option value="approved" selected class="bg-green-100 text-green-800">Approved</option>
+                                            <option value="rejected" class="bg-red-100 text-red-800">Rejected</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">P003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Beach House</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Miami, FL</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,200,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                            <option value="pending" class="bg-yellow-100 text-yellow-800">Pending</option>
+                                            <option value="approved" class="bg-green-100 text-green-800">Approved</option>
+                                            <option value="rejected" selected class="bg-red-100 text-red-800">Rejected</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div>
+                            <span id="pageInfo" class="text-sm text-gray-600"></span>
+                        </div>
+                        <div>
+                            <button id="prevPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400" disabled>Previous</button>
+                            <button id="nextPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="requests" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+
+                        <div class="flex items-center p-6 border-b justify-between">
+                            <h3 class="text-lg font-medium text-gray-900 py-5">Requests</h3>
+                            <div class="flex  items-center space-x-4">
+
+                                <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                    <option value="">Select City</option>
+                                    <option value="city1">City 1</option>
+                                    <option value="city2">City 2</option>
+                                </select>
+                                <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                    <option value="">Select Community</option>
+                                    <option value="community1">Community 1</option>
+                                    <option value="community2">Community 2</option>
+                                </select>
+                                <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                    <option value="">Select RM</option>
+                                    <option value="rm1">RM 1</option>
+                                    <option value="rm2">RM 2</option>
+                                </select>
+                                <input type="text" placeholder="Search requests..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+                            </div>
+                        </div>
+
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Request ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tenant Details</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner Details</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Schedule</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RM</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FM</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R001</td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">John Doe</div>
+                                        <div class="text-sm text-gray-500">+1 234-567-8900</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">Jane Smith</div>
+                                        <div class="text-sm text-gray-500">+1 234-567-8901</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <select class="px-2 py-1 text-xs font-semibold rounded bg-gray-100 border border-gray-300">
+                                            < option value="pending" class="bg-yellow-100 text-yellow-800">Pending</option>
+                                                <option value="approved" class="bg-green-100 text-green-800">Approved</option>
+                                                <option value="rejected" class="bg-red-100 text-red-800">Rejected</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">
+                                            <input type="date" class="border rounded px-2 py-1 mb-1 w-full" />
+                                            <input type="time" class="border rounded px-2 py-1 w-full" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <select class="px-2 py-1 text-xs rounded border border-gray-300">
+                                            <option>RM 1</option>
+                                            <option>RM 2</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <select class="px-2 py-1 text-xs rounded border border-gray-300">
+                                            <option>FM 1</option>
+                                            <option>FM 2</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-green-600 hover:text-green-900"><i class="fas fa-check"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div>
+                            <span id="pageInfo" class="text-sm text-gray-600"></span>
+                        </div>
+                        <div>
+                            <button id="prevPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400" disabled>Previous</button>
+                            <button id="nextPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="staff-assignment" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+
+
+                        <div class="overflow-x-auto">
+                            <div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h1 class="text-lg font-semibold">Manager Allocation</h1>
+                                    <input type="text" placeholder="Search community..." class="100 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+                                    <div class="border-b flex space-x-1">
+                                        <button id="addRow" class="px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Add</button>
+                                        <button id="saveRows" class="px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Save</button>
+                                        <button id="deleteSelected" class="px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="min-w-full bg-white border border-gray-300">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2 px-4 border-b">Select</th>
+                                        <th class="py-2 px-4 border-b">Community</th>
+                                        <th class="py-2 px-4 border-b">RM</th>
+                                        <th class="py-2 px-4 border-b">FM</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="staffTableBody">
+                                    <tr>
+                                        <td class="py-2 px-4 border-b"><input type="checkbox" class="select-row" /></td>
+                                        <td class="py-2 px-4 border-b">Avatar</td>
+                                        <td class="py-2 px-4 border-b">John</td>
+                                        <td class="py-2 px-4 border-b">James</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b"><input type="checkbox" class="select-row" /></td>
+                                        <td class="py-2 px-4 border-b">Avatar</td>
+                                        <td class="py-2 px-4 border-b">John</td>
+                                        <td class="py-2 px-4 border-b">James</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b"><input type="checkbox" class="select-row" /></td>
+                                        <td class="py-2 px-4 border-b">Avatar</td>
+                                        <td class="py-2 px-4 border-b">John</td>
+                                        <td class="py-2 px-4 border-b">James</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-4">
+                            <div>
+                                <span id="pageInfo" class="text-sm text-gray-600"></span>
+                            </div>
+                            <div>
+                                <button id="prevPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400" disabled>Previous</button>
+                                <button id="nextPage" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="communities" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex flex-row items-center mb-4 justify-between">
+                            <h3 class="text-lg font-medium text-gray-900">Existing Communities</h3>
+                            <input type="text" placeholder="Search Communities..." class="w-100 ml-10 px-4 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+                            <div class="flex justify-end">
+                                <button id="addCommunity" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Add</button>
+                                <button id="saveCommunities" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ml-2">Save</button>
+                                <button id="deleteSelectedCommunities" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ml-2">Delete</button>
+                            </div>
+                        </div>
+
+
+
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Select</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Builder</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Community Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Neighborhood</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Map URL</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default Image</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="communityTableBody" class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="checkbox" class="select-community" /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="Los Angeles" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="ABC Builders" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="Sunset Villas" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="123 Sunset Blvd" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="Sunset District" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="https://maps.google.com/?q=456+Ocean+Drive" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="https://via.placeholder.com/50" readonly /></td>
+
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="checkbox" class="select-community" /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="Miami" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="XYZ Developers" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="Ocean View Apartments" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="456 Ocean Drive" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="Oceanfront" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="https://maps.google.com/?q=456+Ocean+Drive" readonly /></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="https://via.placeholder.com/50" readonly /></td>
+
+                                </tr>
+                                <!-- Additional community entries can be added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div id="user-management" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-6">User Management</h3>
+                        <div class="flex justify-between mb-4">
+                            <input type="text" placeholder="Search users..." class="w-1/2 px-4 py-2 border border-gray-300 rounded-md" />
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Add User</button>
+                        </div>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">U001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Alice Johnson</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">RM</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">Edit</button>
+                                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">U002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Bob Smith</td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FM</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">Edit</button>
+                                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <div id="reports" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-6">Reports</h3>
+                        <div class="flex justify-between mb-4">
+                            <input type="text" placeholder="Search reports..." class="w-1/2 px-4 py-2 border border-gray-300 rounded-md" />
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Generate Report</button>
+                        </div>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Report ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Monthly Rental Report</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-10-01</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">View</button>
+                                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Property Occupancy Report</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-10-02</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">View</button>
+                                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="db-tables" class="section hidden mt-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-6">All Tables</h3>
+
+                        <select>
+                            <option>Select Table</option>
+                            <option>Table 1</option>
+                            <option>Table 2</option>
+                            <option>Table 3</option>
+                            <option>Table 4</option>
+                        </select>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const propertyCtx = document.getElementById('propertyChartCanvas').getContext('2d');
+        const requestCtx = document.getElementById('requestChartCanvas').getContext('2d');
+
+        new Chart(propertyCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    data: [150, 230, 224, 218, 135, 147],
+                    borderColor: '#4F46E5',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(requestCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['New', 'In Progress', 'Resolved', 'Cancelled'],
+                datasets: [{
+                    data: [435, 310, 234, 155],
+                    backgroundColor: ['#4F46E5', '#10B981', '#F59E0B', '#EF4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '60%'
+            }
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+        document.getElementById('addRow').addEventListener('click', function() {
+            const tableBody = document.getElementById('staffTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+        <td class="py-2 px-4 border-b"><input type="checkbox" class="select-row" /></td>
+        <td class="py-2 px-4 border-b"><input type="text" class="w-full border border-gray-300 rounded-md" placeholder="Community Name" /></td>
+        <td class="py-2 px-4 border-b"><input type="text" class="w-full border border-gray-300 rounded-md" placeholder="RM Name" /></td>
+        <td class="py-2 px-4 border-b"><input type="text" class="w-full border border-gray-300 rounded-md" placeholder="FM Name" /></td>
+        
+    `;
+            // Insert the new row at the beginning of the table body
+            tableBody.insertBefore(newRow, tableBody.firstChild);
+        });
+
+        document.getElementById('saveRows').addEventListener('click', function() {
+            // Implement save functionality here
+            alert('Save functionality to be implemented.');
+        });
+
+        document.getElementById('deleteSelected').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.select-row:checked');
+            checkboxes.forEach(checkbox => {
+                const row = checkbox.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('deleteRow')) {
+                const row = e.target.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+            }
+        });
+        document.getElementById('addCommunity').addEventListener('click', function() {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="checkbox" class="select-community" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="City" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Builder" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Community Name" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Address" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Neighborhood" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Map URL" /></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><input type="text" class="w-full border border-gray-300 rounded-md" value="" placeholder="Default Image" /></td>
+        `;
+            document.getElementById('communityTableBody').appendChild(newRow);
+
+            // Add event listener for the new checkbox
+            const checkbox = newRow.querySelector('.select-community');
+            checkbox.addEventListener('change', function() {
+                const inputs = newRow.querySelectorAll('input[type="text"]');
+                inputs.forEach(input => {
+                    input.readOnly = !this.checked;
+                });
+            });
+        });
+        document.getElementById('deleteSelectedCommunities').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.select-community:checked');
+            checkboxes.forEach(checkbox => {
+                const row = checkbox.closest('tr');
+                row.remove();
+            });
+        });
+
+        document.querySelectorAll('.select-community').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                const inputs = row.querySelectorAll('input[type="text"]');
+                inputs.forEach(input => {
+                    input.readOnly = !this.checked;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
